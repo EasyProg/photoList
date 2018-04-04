@@ -5,12 +5,13 @@
  * Created by Михаил on 30.03.2018.
  */
 import React, {Component} from 'react';
-import {View,FlatList,Dimensions,TouchableOpacity,Text,YellowBox} from 'react-native';
+import {View,FlatList,TouchableOpacity,Text,YellowBox,Dimensions} from 'react-native';
 import { isTablet } from 'react-native-device-detection';
-import Photo from './Photo';
-import ModalPhotoView from './ModalPhotoView';
+import Photo from '../components/Photo';
+import ModalPhotoView from '../components/ModalPhotoView';
 export default class PhotoList extends Component {
-    constructor() {
+    constructor()
+    {
         super();
         this.state = {
             photos:[],
@@ -23,18 +24,7 @@ export default class PhotoList extends Component {
         ]);
         this.setModalVisible=this.setModalVisible.bind(this);
         this.activeImageChange=this.activeImageChange.bind(this);
-
-        Dimensions.addEventListener('change', () =>
-        {
-            this.setState ({orientation:this.isPortrait()?'portrait':'landscape'});
-        });
     }
-
-    isPortrait = () =>
-    {
-        const dim = Dimensions.get('screen');
-        return dim.height >= dim.width;
-    };
     fetchData(currentPage)
     {
         let page = currentPage === 1?'':`&page=${currentPage}`;
@@ -53,7 +43,8 @@ export default class PhotoList extends Component {
     getListNumColumns(tablet,orientation)
     {
         if  (tablet) {
-            switch (orientation) {
+            switch (orientation)
+            {
                 case 'portrait':
                     return "4";
                 case 'landscape':
@@ -63,7 +54,8 @@ export default class PhotoList extends Component {
             }
         }
         else {
-            switch (orientation) {
+            switch (orientation)
+            {
                 case 'portrait':
                     return "2";
                 case 'landscape':
@@ -73,8 +65,9 @@ export default class PhotoList extends Component {
             }
         }
     }
-    getImageUrls(arr) {
-      return arr.map((item)=>{return {url:item.image_url[0]}});
+    getImageUrls(arr)
+    {
+        return arr.map((item)=>{return {url:item.image_url[0]}});
     };
     setModalVisible(visibility,item)
     {
@@ -86,19 +79,18 @@ export default class PhotoList extends Component {
     componentDidMount()
 
     {
-
-        this.setState ({orientation:this.isPortrait()?'portrait':'landscape'});
         this.fetchData(this.state.nextPage);
     }
     activeImageChange(index) {
-    this.setState({activeImage:this.state.photos[index],activeIndex:index});
+        this.setState({activeImage:this.state.photos[index],activeIndex:index});
     }
     render()
     {
         const tablet = isTablet;
-        let   cols = this.getListNumColumns(tablet,this.state.orientation);
+        let   cols = this.getListNumColumns(tablet,this.props.orientation);
         let   width = Dimensions.get('window').width/(+cols)-10;
-        return   (      <View>
+        return   (
+            <View>
             <ModalPhotoView visible={this.state.modalVisible}
             setVisible={this.setModalVisible}
             changeImage={this.activeImageChange}
@@ -118,7 +110,6 @@ export default class PhotoList extends Component {
                               onEndThreshold={300}
             />
             </View>
-
                  )
     }
 }

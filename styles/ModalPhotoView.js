@@ -50,34 +50,6 @@ const styles = StyleSheet.create({
     flex:1,
     margin:10,
     alignSelf:'stretch'
-},
-    modalImageViewInfoCont:
-{
-    height:75,
-    alignSelf:'stretch',
-    flexDirection:'row',
-    margin:10,
-    justifyContent:'space-between',
-    backgroundColor:'transparent'
-},
-    modalImageViewInfoText:
-{
-    color:'#fff',
-    fontSize:15
-},
-    shareView:
-{
-    width:40,
-    height:40,
-    backgroundColor:'#5ca38b',
-    borderRadius:40,
-    justifyContent:'center',
-    alignItems:'center',
-},
-    shareImage:
-{
-    width:20,
-    height:20,
 }
 });
 
